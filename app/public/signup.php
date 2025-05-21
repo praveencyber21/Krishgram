@@ -1,5 +1,32 @@
 <?
 include __DIR__ . "/../lib/Load.class.php";
+include_once __DIR__ . "/../lib/User.class.php";
+
+
+
+if ($_SERVER["REQUEST_METHOD"] === 'POST') {
+    $username = $_POST["user_name"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $confirm_password = $_POST["confirm_password"];
+
+    $error = '';
+    $success = '';
+    if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+        $error = "All fields are required.";
+    } elseif ($password != $confirm_password) {
+        $error = "Password do not match.";
+    } else {
+        $result = User::signup($username, $email, $password, $confirm_password);
+        if ($result === true) {
+            // print("Signup successful.");
+            $success = "Signup successful";
+        } else {
+            // print("Signup failed.");
+            $error = "Signup failed";
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +47,16 @@ include __DIR__ . "/../lib/Load.class.php";
 
 
     <? Template::load("signup"); ?>
+
+    <?php if (!empty($error)): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
+
+    <?php if (!empty($success)): ?>
+        <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
+    <?php endif; ?>
+
+
 
 
 

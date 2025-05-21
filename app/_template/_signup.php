@@ -1,5 +1,5 @@
  <main class="form-signin w-100 m-auto text-center">
-     <form>
+     <form action="signup.php" method="post">
          <img class="mb-4" src="https://static.cdnlogo.com/logos/i/92/instagram.svg" alt="krishgram-logo" width="72" height="57">
 
          <h1 class="h2 mb-3 fw-normal">Sign up</h1>

@@ -1,5 +1,6 @@
 <?
 
+include_once __DIR__ . "/../lib/Database.class.php";
 class User
 {
 
@@ -8,7 +9,8 @@ class User
 
         $connection = Database::getConnection();
 
-        if ($password == $confirm_password) {
-        }
+        $query = "INSERT INTO users (user_name, email, password) VALUES ('$username', '$email', '$password')";
+        $result = $connection->query($query);
+        return $result;
     }
 }
