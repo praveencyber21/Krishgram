@@ -9,6 +9,7 @@ class User
 
         $connection = Database::getConnection();
 
+        $password = md5($password);
         $query = "INSERT INTO users (user_name, email, password) VALUES ('$username', '$email', '$password')";
         $result = $connection->query($query);
         return $result;

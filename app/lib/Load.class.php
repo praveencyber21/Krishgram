@@ -1,5 +1,7 @@
 <?
+include_once __DIR__ . "User.class.php";
 
+session_start();
 class Template
 {
 
