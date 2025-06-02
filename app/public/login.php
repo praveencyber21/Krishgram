@@ -36,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = "Login failed.";
         } else {
             $success = "Login successful.";
+            $user = new User();
+            $user->setUsername();
         }
     }
 }

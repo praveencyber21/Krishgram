@@ -58,4 +58,19 @@ class User
             return false;
         }
     }
+
+    public function __call($name, $arguments)
+    {
+        $property = preg_replace("/[^0-9a-zA-Z]/", "", substr($name, 3));
+
+        $property = strtolower(preg_replace('/\B([A-Z])/', '_$1', $property));
+
+        echo $property;
+
+        if (substr($name, 0, 3) === "set") {
+            echo "Set method";
+        } elseif (substr($name, 0, 3) === "get") {
+            echo "Get method";
+        }
+    }
 }
