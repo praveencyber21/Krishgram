@@ -1,6 +1,6 @@
 <?
 include __DIR__ . "/../lib/Load.class.php";
-
+include __DIR__ . "/../lib/User.class.php";
 
 
 if ($_SERVER["REQUEST_METHOD"] === 'POST') {
@@ -54,7 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     <?php if (!empty($success)): ?>
         <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
 
-    <?php endif; ?>
+    <?php header("Location: login.php");
+    endif; ?>
 
 
 
