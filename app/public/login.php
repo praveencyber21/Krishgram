@@ -6,20 +6,19 @@ $success = '';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+    $user = new User();
     $email = $_REQUEST['email'];
     $password = $_REQUEST['password'];
 
     if (empty($email) || empty($password)) {
         $error = "All fields are required.";
     } else {
-        $result = User::login($email, $password);
+        $result = $user->login($email, $password);
         if ($result === false) {
             $error = "Login failed.";
         } else {
             $success = "Login successful.";
-            $user = new User();
-            $user->setUsername();
+            header("Location: home.php");
         }
     }
 }
@@ -36,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Krishgram</title>
     <link rel="stylesheet" href="assets/css/login.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-
 
 </head>
 

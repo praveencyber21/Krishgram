@@ -13,7 +13,8 @@ class User
      * @param string @password      Password hashed before storing 
      * @return bool|mysqli_result   Returns the result of the query (success or failure).
      */
-    public static function signup($username, $email, $password, $confirm_password)
+
+    public function signup($username, $email, $password, $confirm_password)
     {
 
         $connection = Database::getConnection();
@@ -38,17 +39,22 @@ class User
      * @param string @password      Password hashed before storing 
      * @return bool|mysqli_result   Returns the result of the query (success or failure).
      */
-    public static function login($email, $password)
+
+    public function login($email, $password)
     {
         $connection = Database::getConnection();
 
-        $query = "SELECT password_hash FROM users WHERE email='$email' OR user_name='$email' ";
+        $query = "SELECT password_hash, user_name FROM users WHERE email='$email' OR user_name='$email' ";
         $result = $connection->query($query);
 
         if ($result->num_rows >= 1) {
             $row = $result->fetch_assoc();
 
             if (password_verify($password, $row['password_hash'])) {
+                $_SESSION['user_name'] = $row['user_name'];
+                $user = new User();
+                $user_id = $user->getUserID($_SESSION['user_name']);
+                print_r($user_id);
                 return $row;
             } else {
                 return false;
@@ -71,5 +77,32 @@ class User
         // } elseif (substr($name, 0, 3) === "get") {
         //     echo "Get method";
         // }
+        $connection = Database::getConnection();
+
+        $query = "SELECT $property FROM users WHERE user_name='$arguments[0]'";
+        $result = $connection->query($query);
+
+        if ($result->num_rows >= 1) {
+            $row = $result->fetch_assoc();
+            return $row['user_id'];
+        }
+    }
+
+    public function post($post_url, $content)
+    {
+
+        $user = new User();
+        $user_id = $user->getUserId($_SESSION['user_name']);
+
+        $connection = Database::getConnection();
+
+        $query = "INSERT INTO posts ( image_url, caption) VALUES ( '$post_url', '$content')";
+        $result = $connection->query($query);
+        print_r($result);
+        if ($result) {
+            echo "Posted successfully.";
+        } else {
+            echo "Post failed.";
+        }
     }
 }

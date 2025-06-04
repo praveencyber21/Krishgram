@@ -2,6 +2,9 @@
 include_once __DIR__ . "/../lib/Load.class.php";
 
 if ($_SERVER["REQUEST_METHOD"] === 'POST') {
+
+    $user = new User();
+
     $username = $_POST["user_name"];
     $email = $_POST["email"];
     $password = $_POST["password"];
@@ -14,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     } elseif ($password != $confirm_password) {
         $error = "Password do not match.";
     } else {
-        $result = User::signup($username, $email, $password, $confirm_password);
+        $result = $user->signup($username, $email, $password, $confirm_password);
         if ($result === true) {
             $success = "Signup successful";
         } else {
