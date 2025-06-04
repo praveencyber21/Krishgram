@@ -5,8 +5,8 @@
          <h1 class="h2 mb-3 fw-normal">Sign in</h1>
 
          <div class="form-floating">
-             <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
-             <label for="floatingInput">Email address</label>
+             <input type="text" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
+             <label for="floatingInput">Username or email</label>
          </div>
          <div class="form-floating">
              <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">

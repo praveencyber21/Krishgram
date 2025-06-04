@@ -25,7 +25,7 @@ class User
         }
 
 
-        $query = "INSERT INTO users (user_name, email, password) VALUES ('$username', '$email', '$hashed_password')";
+        $query = "INSERT INTO users (user_name, email, password_hash) VALUES ('$username', '$email', '$hashed_password')";
         $result = $connection->query($query);
         return $result;
     }
@@ -40,16 +40,15 @@ class User
      */
     public static function login($email, $password)
     {
-
         $connection = Database::getConnection();
 
-        $query = "SELECT password FROM users WHERE email='$email'";
+        $query = "SELECT password_hash FROM users WHERE email='$email' OR user_name='$email' ";
         $result = $connection->query($query);
 
         if ($result->num_rows >= 1) {
             $row = $result->fetch_assoc();
 
-            if (password_verify($password, $row['password'])) {
+            if (password_verify($password, $row['password_hash'])) {
                 return $row;
             } else {
                 return false;
@@ -65,12 +64,12 @@ class User
 
         $property = strtolower(preg_replace('/\B([A-Z])/', '_$1', $property));
 
-        echo $property;
+        // echo $property;
 
-        if (substr($name, 0, 3) === "set") {
-            echo "Set method";
-        } elseif (substr($name, 0, 3) === "get") {
-            echo "Get method";
-        }
+        // if (substr($name, 0, 3) === "set") {
+        //     echo "Set method";
+        // } elseif (substr($name, 0, 3) === "get") {
+        //     echo "Get method";
+        // }
     }
 }

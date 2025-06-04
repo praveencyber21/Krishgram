@@ -1,7 +1,5 @@
 <?
-include __DIR__ . "/../lib/Load.class.php";
-include __DIR__ . "/../lib/User.class.php";
-
+include_once __DIR__ . "/../lib/Load.class.php";
 
 if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     $username = $_POST["user_name"];
@@ -18,10 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     } else {
         $result = User::signup($username, $email, $password, $confirm_password);
         if ($result === true) {
-            // print("Signup successful.");
             $success = "Signup successful";
         } else {
-            // print("Signup failed.");
             $error = "Signup failed";
         }
     }

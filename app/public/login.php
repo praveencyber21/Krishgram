@@ -1,27 +1,9 @@
 <?
-include __DIR__ . "/../lib/Load.class.php";
-include __DIR__ . "/../lib/User.class.php";
+include_once __DIR__ . "/../lib/Load.class.php";
 
 $error = '';
 $success = '';
 
-
-// if ($_SERVER["REQUEST_METHOD"] === "post") {
-
-//     $email = $_REQUEST['email'];
-//     $password = $_REQUEST['password'];
-
-//     if (empty($username) || empty($password)) {
-//         $error = "All fields are required.";
-//     } elseif (empty($_SESSION['is_logedin']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-
-//         if (User::login($email, $password) === true) {
-//             $success = "Login successful.";
-//         } else {
-//             $error = "Login failed.";
-//         }
-//     }
-// }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
