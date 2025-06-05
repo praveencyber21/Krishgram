@@ -10,4 +10,3 @@ CREATE TABLE IF NOT EXISTS users (
     profile_picture_url VARCHAR(255),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-

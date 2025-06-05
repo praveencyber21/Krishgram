@@ -1,5 +1,7 @@
 <?
 include_once __DIR__ . "/User.class.php";
+include_once __DIR__ . "/UserSession.class.php";
+include_once __DIR__ . "/MagicMethods.class.php";
 
 session_start();
 class Template

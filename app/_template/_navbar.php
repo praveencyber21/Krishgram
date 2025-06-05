@@ -18,7 +18,9 @@
                     <a class="nav-link" href="#">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <button class="btn btn-outline-primary">Logout</button>
+                    <form action="logout.php" method="post">
+                        <button class="btn btn-outline-primary">Logout</button>
+                    </form>
                 </li>
             </ul>
         </div>

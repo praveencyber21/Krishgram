@@ -6,14 +6,16 @@ $success = '';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user = new User();
+
+    $user_session = new UserSession();
+
     $email = $_REQUEST['email'];
     $password = $_REQUEST['password'];
 
     if (empty($email) || empty($password)) {
         $error = "All fields are required.";
     } else {
-        $result = $user->login($email, $password);
+        $result = $user_session->authenticate($email, $password);
         if ($result === false) {
             $error = "Login failed.";
         } else {

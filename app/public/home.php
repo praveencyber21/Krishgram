@@ -1,6 +1,10 @@
 <?
 include_once __DIR__ . "/../lib/Load.class.php";
 
+if (!isset($_COOKIE['session_token'])) {
+    header("Location: login.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>

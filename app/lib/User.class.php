@@ -25,7 +25,6 @@ class User
             return false;
         }
 
-
         $query = "INSERT INTO users (user_name, email, password_hash) VALUES ('$username', '$email', '$hashed_password')";
         $result = $connection->query($query);
         return $result;
@@ -44,18 +43,15 @@ class User
     {
         $connection = Database::getConnection();
 
-        $query = "SELECT password_hash, user_name FROM users WHERE email='$email' OR user_name='$email' ";
+        $query = "SELECT password_hash, user_name, user_id FROM users WHERE email='$email' OR user_name='$email' ";
         $result = $connection->query($query);
 
         if ($result->num_rows >= 1) {
+
             $row = $result->fetch_assoc();
 
             if (password_verify($password, $row['password_hash'])) {
-                $_SESSION['user_name'] = $row['user_name'];
-                $user = new User();
-                $user_id = $user->getUserID($_SESSION['user_name']);
-                print_r($user_id);
-                return $row;
+                return $row['user_id'];
             } else {
                 return false;
             }
@@ -64,41 +60,19 @@ class User
         }
     }
 
-    public function __call($name, $arguments)
-    {
-        $property = preg_replace("/[^0-9a-zA-Z]/", "", substr($name, 3));
-
-        $property = strtolower(preg_replace('/\B([A-Z])/', '_$1', $property));
-
-        // echo $property;
-
-        // if (substr($name, 0, 3) === "set") {
-        //     echo "Set method";
-        // } elseif (substr($name, 0, 3) === "get") {
-        //     echo "Get method";
-        // }
-        $connection = Database::getConnection();
-
-        $query = "SELECT $property FROM users WHERE user_name='$arguments[0]'";
-        $result = $connection->query($query);
-
-        if ($result->num_rows >= 1) {
-            $row = $result->fetch_assoc();
-            return $row['user_id'];
-        }
-    }
 
     public function post($post_url, $content)
     {
 
         $user = new User();
-        $user_id = $user->getUserId($_SESSION['user_name']);
+        $magic = new MagicMethods();
+
+        $user_id = $magic->getUserId();
 
         $connection = Database::getConnection();
 
-        $query = "INSERT INTO posts ( image_url, caption) VALUES ( '$post_url', '$content')";
+        $query = "INSERT INTO posts (user_id, image_url, caption) VALUES ('$user_id', '$post_url', '$content')";
         $result = $connection->query($query);
-        print_r($result);
         if ($result) {
             echo "Posted successfully.";
         } else {
